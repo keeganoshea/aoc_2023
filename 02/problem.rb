@@ -64,72 +64,34 @@ class Game
 end
 
 class Set
-  attr_reader :plays
+  attr_reader :groups
   def initialize(set)
     @sets = set.split(";")
-    @plays = @sets.map do |set|
+    @groups = @sets.map do |set|
       set.split(",")
     end.flatten
   end
 
-  def red_cubes_max
+  def cubes_max(color)
     nums = []
-    plays.each do |play|
-      if play.scan(/red/).any?
+    groups.each do |play|
+      if play.scan(/#{color}/).any?
         nums << play.scan(/-?\d+/).first.to_i
       end
     end
     nums.max
+  end
+
+  def red_cubes_max
+    cubes_max("red")
   end
 
   def green_cubes_max
-    nums = []
-    plays.each do |play|
-      if play.scan(/green/).any?
-        nums << play.scan(/-?\d+/).first.to_i
-      end
-    end
-    nums.max
+    cubes_max("green")
   end
 
   def blue_cubes_max
-    nums = []
-    plays.each do |play|
-      if play.scan(/blue/).any?
-        nums << play.scan(/-?\d+/).first.to_i
-      end
-    end
-    nums.max
-  end
-
-  def count_red
-    count = 0
-    plays.each do |play|
-      if play.scan(/red/).any?
-        count += play.scan(/-?\d+/).first.to_i
-      end
-    end
-    count
-  end
-
-  def count_blue
-    count = 0
-    plays.each do |play|
-      if play.scan(/blue/).any?
-        count += play.scan(/-?\d+/).first.to_i
-      end
-    end
-    count
-  end
-
-  def count_green
-    count = 0
-    plays.each do |play|
-      if play.scan(/green/).any?
-        count += play.scan(/-?\d+/).first.to_i
-      end
-    end
-    count
+    cubes_max("blue")
   end
 end
 
