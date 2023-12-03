@@ -17,7 +17,7 @@ class CollaborationValue
 
   def word_values
     rows.map do |row|
-      words = row.scan(/(?:1|2|3|4|5|6|7|8|9|one|two|three|four|five|six|seven|eight|nine)/)
+      words = row.scan(/(?=(0|1|2|3|4|5|6|7|8|9|0|one|two|three|four|five|six|seven|eight|nine))/)
       string = words.join("")
       string.gsub("one", "1").
         gsub("two", "2").
@@ -47,5 +47,8 @@ puts "Try: #{collab.sum}"
 
 # problem 2 attempts
 # 54258
+# 54265 correct answer
+
+
 
 
